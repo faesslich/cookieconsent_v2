@@ -1,4 +1,4 @@
-/* global $, ga, cookieConsent, piwikId */
+/* global $, ga, cookieConsent, piwikId, piwikUrl */
 
 const $q = document.querySelector.bind(document);
 
@@ -148,7 +148,9 @@ const cookieConsent = {
      * Place analytics or marketing/tracking scripts here if unnecessary if analytics or marketing cookies are allowed.
      */
     if (cookieConsent.getCookie('cc_analytics') === 'true' || cookieConsent.getCookie('cc_marketing') === 'true') {
-      cookieConsent.initiliazePiwik(piwikId, '//analytics.hybrid-cms.de/');
+      if (piwikId !== null && piwikUrl !== null) {
+        cookieConsent.initiliazePiwik(piwikId, piwikUrl);
+      }
     }
 
     return false;

@@ -7,7 +7,7 @@
 <title>Cookie Consent V2 - Faesslich</title>
 <link rel="stylesheet" href="./demo.css">
 <link rel="stylesheet" href="./../dist/css/cookieconsent_v2.min.css">
-<script>var piwikId = 'XXXXXXXXXXXXXXX';</script>
+<script>var piwikId = 'XXXXXXXXXXXXXXX'; var piwikUrl = '';</script>
 </head>
 <body class="home -fixed-header">
 
@@ -23,6 +23,21 @@
 
   document.addEventListener('DOMContentLoaded', cookieConsent.onFirstLoad);
   cookieConsent.initialise(ccObjOverride);
+
+  /**
+   * Place third party scripts depending on cookies
+   */
+  if (cookieConsent.getCookie('cc_analytics') === 'true') {
+    // Place analytics scripts (eg. GA & Matomo) here
+  }
+
+  if (cookieConsent.getCookie('cc_marketing') === 'true') {
+    // Place marketing/tracking scripts (eg. GTM or FBP) here
+  }
+
+  if (cookieConsent.getCookie('cc_analytics') === 'true' || cookieConsent.getCookie('cc_marketing') === 'true') {
+    // Place analytics or marketing/tracking scripts here if unnecessary if analytics or marketing cookies are allowed.
+  }
 </script>
 </body>
 </html>
