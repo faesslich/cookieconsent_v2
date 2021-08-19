@@ -1,0 +1,40 @@
+
+// --------------------------------------
+//    VIEWPORT SIZES
+// --------------------------------------
+$viewport__md--min: 1024px !default;
+$viewport__sm--min: 768px !default;
+$viewport__xs--min: 480px !default;
+$viewport__xxs--min: 360px !default;
+$viewport__xxxs--min: 320px !default;
+
+// neutral colors
+$color__primary: #136682 !default;
+$color__secondary: #e5e5e5 !default;
+
+$color__neutral-black: #000000 !default;
+$color__neutral-off-black: #121212 !default;
+$color__neutral-gray--darkest: #333333 !default;
+$color__neutral-gray--dark: #737373 !default;
+$color__neutral-gray: #A6A6A6 !default;
+$color__neutral-gray--light: #D9D9D9 !default;
+$color__neutral-gray--lighter: #E6E6E6 !default;
+$color__neutral-gray--lightest: #F2F2F2 !default;
+$color__neutral-off-white: #FAFAFA !default;
+$color__neutral-white: #FFFFFF !default;
+
+// font family
+$font__family--default: Arial, sans-serif !default;
+
+// font size
+$font__size--default: 1.6em !default;                         // 16px
+$font__size--sm: ($font__size--default * 0.875) !default;     // 14px
+$font__size--xs: ($font__size--default * 0.75) !default;     // 14px
+
+// font weight
+$font__weight--bold: 700 !default;
+$font__weight--default: 400 !default;
+
+// line height
+$line__height--default: 1.45 !default;
+$line__height--small: 1.25 !default;

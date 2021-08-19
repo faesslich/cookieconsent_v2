@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookie Consent V2 - Faesslich</title>
+<link rel="stylesheet" href="./demo.css">
+<link rel="stylesheet" href="./../dist/css/cookieconsent_v2.min.css">
+<script>var piwikId = 'XXXXXXXXXXXXXXX';</script>
+</head>
+<body class="home -fixed-header">
+
+<!-- BODY STUFF HERE -->
+
+<script src="./../dist/js/cookieconsent_v2.min.js"></script>
+<script>
+  var ccObjOverride = {
+    strings: {
+      // notificationTitle: 'NEW TITLE'
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', cookieConsent.onFirstLoad);
+  cookieConsent.initialise(ccObjOverride);
+</script>
+</body>
+</html>
