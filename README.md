@@ -44,7 +44,7 @@ npm install
 ```
 
 
-Obviously we need Node.js and npm installed on out machine. 
+Obviously we need Node.js and npm installed on our machine. 
 
 ---
 
