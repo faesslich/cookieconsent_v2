@@ -1,4 +1,5 @@
-/* global ga, cookieConsent, piwikId, piwikUrl */
+/* global piwikId, piwikUrl, gtmId */
+
 import * as Factory from './utils/methods';
 
 const $q = document.querySelector.bind(document);
@@ -20,7 +21,7 @@ const cookieConsent = {
   approved: {},
   settings: {
     cookieExpire: 365,
-    position: 'bottom', // 'overlay', bottom', 'top' are available by default
+    position: 'overlay', // 'overlay', bottom', 'top' are available by default
     showTypeDescription: true // 'true' by default
   },
   strings: {
@@ -63,6 +64,19 @@ const cookieConsent = {
     const g = document.createElement('script');
     const s = document.getElementsByTagName('script')[0];
     g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'piwik.js'; s.parentNode.insertBefore(g, s);
+  },
+
+  initializeGTM: function (gtmID) {
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0];
+      var j = d.createElement(s);
+      var dl = l !== 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', gtmID);
   },
 
   /**
@@ -125,37 +139,6 @@ const cookieConsent = {
     cookieConsent.setupcomplete = true;
     cookieConsent.setup();
   },
-
-  /**
-   * @returns {boolean}
-   */
-  triggerThirdpartyScripts: function () {
-    /**
-     * Place analytics scripts (eg. GA & Matomo) here
-     */
-    if (cookieConsent.getCookie('cc_analytics') === 'true') {
-      // scripts here
-    }
-
-    /**
-     * Place marketing/tracking scripts (eg. GTM or FBP) here
-     */
-    if (cookieConsent.getCookie('cc_marketing') === 'true') {
-      // scripts here
-    }
-
-    /**
-     * Place analytics or marketing/tracking scripts here if unnecessary if analytics or marketing cookies are allowed.
-     */
-    if (cookieConsent.getCookie('cc_analytics') === 'true' || cookieConsent.getCookie('cc_marketing') === 'true') {
-      if (piwikId !== null && piwikUrl !== null) {
-        cookieConsent.initiliazePiwik(piwikId, piwikUrl);
-      }
-    }
-
-    return false;
-  },
-
 
   /**
    * show Consent Box
@@ -386,7 +369,6 @@ const cookieConsent = {
 
     Factory.fadeOut($q('#cookie-consent-notification'));
     cookieConsent.checkapproval();
-    cookieConsent.triggerThirdpartyScripts();
 
     return false;
   },
