@@ -7,7 +7,11 @@
 <title>Cookie Consent V2 - Faesslich</title>
 <link rel="stylesheet" href="./demo.css">
 <link rel="stylesheet" href="./../dist/css/cookieconsent_v2.min.css">
-<script>var piwikId = 'XXXXXXXXXXXXXXX'; var piwikUrl = '';</script>
+<script>
+  var piwikId = piwikId || '';
+  var piwikUrl = piwikUrl || '';
+  var gtmId = gtmId || '';
+</script>
 </head>
 <body class="home -fixed-header">
 
@@ -24,19 +28,49 @@
   document.addEventListener('DOMContentLoaded', cookieConsent.onFirstLoad);
   cookieConsent.initialise(ccObjOverride);
 
+
   /**
-   * Place third party scripts depending on cookies
+   * Check for "cc_necessary" cookie.
+   * If set trigger check for other cookies, else trigger scripts on click on accept button
    */
-  if (cookieConsent.getCookie('cc_analytics') === 'true') {
-    // Place analytics scripts (eg. GA & Matomo) here
+  document.onreadystatechange = function () {
+    if (document.readyState === 'complete') {
+
+      if (!cookieConsent.getCookie('cc_necessary')) {
+        var ccAcceptAll = document.querySelector('#cookieConsent-approve-button-thissite');
+        if (ccAcceptAll) {
+          ccAcceptAll.addEventListener('click', triggerThirdPartyScripts);
+        }
+      } else {
+        triggerThirdPartyScripts();
+      }
+    }
   }
 
-  if (cookieConsent.getCookie('cc_marketing') === 'true') {
-    // Place marketing/tracking scripts (eg. GTM or FBP) here
-  }
 
-  if (cookieConsent.getCookie('cc_analytics') === 'true' || cookieConsent.getCookie('cc_marketing') === 'true') {
-    // Place analytics or marketing/tracking scripts here if unnecessary if analytics or marketing cookies are allowed.
+  function triggerThirdPartyScripts() {
+    /**
+     * Place third party scripts depending on cookies
+     */
+    if (cookieConsent.getCookie('cc_analytics') === 'true') {
+      // Place analytics scripts (eg. GA & Matomo) here
+    }
+
+    if (cookieConsent.getCookie('cc_marketing') === 'true') {
+      // Place marketing/tracking scripts (eg. GTM or FBP) here
+
+      if (gtmId !== '') {
+        cookieConsent.initializeGTM(gtmId);
+      }
+    }
+
+    if (cookieConsent.getCookie('cc_analytics') === 'true' || cookieConsent.getCookie('cc_marketing') === 'true') {
+      // Place analytics or marketing/tracking scripts here if analytics or marketing cookies are allowed.
+
+      if (piwikId !== '' && piwikUrl !== '') {
+        cookieConsent.initiliazePiwik(piwikId, piwikUrl);
+      }
+    }
   }
 </script>
 </body>
