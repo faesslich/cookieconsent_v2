@@ -54,18 +54,21 @@ const cookieConsent = {
     linkText: 'Datenschutzerklärung'
   },
 
-  initiliazePiwik: function (siteId, url) {
+  initiliazePiwik: function (siteId, url, version) {
+    if (version === undefined) {
+      version = 'matomo';
+    }
     const _paq = window._paq = window._paq || [];
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function () {
       var u = url;
-      _paq.push(['setTrackerUrl', u + 'matomo.php']);
+      _paq.push(['setTrackerUrl', u + version + '.php']);
       _paq.push(['setSiteId', siteId]);
       var d = document;
       var g = d.createElement('script');
       var s = d.getElementsByTagName('script')[0];
-      g.async = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
+      g.async = true; g.src = u + version + '.js'; s.parentNode.insertBefore(g, s);
     })();
   },
 
