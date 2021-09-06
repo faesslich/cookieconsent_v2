@@ -55,15 +55,18 @@ const cookieConsent = {
   },
 
   initiliazePiwik: function (siteId, url) {
-    const _paq = _paq || [];
+    const _paq = window._paq = window._paq || [];
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
-    const u = url;
-    _paq.push(['setTrackerUrl', u + 'piwik.php']);
-    _paq.push(['setSiteId', siteId]);
-    const g = document.createElement('script');
-    const s = document.getElementsByTagName('script')[0];
-    g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'piwik.js'; s.parentNode.insertBefore(g, s);
+    (function () {
+      var u = url;
+      _paq.push(['setTrackerUrl', u + 'matomo.php']);
+      _paq.push(['setSiteId', siteId]);
+      var d = document;
+      var g = d.createElement('script');
+      var s = d.getElementsByTagName('script')[0];
+      g.async = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
+    })();
   },
 
   initializeGTM: function (gtmID) {
